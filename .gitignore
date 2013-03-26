@@ -1,0 +1,5 @@
+auto-save-list/
+cache/
+url/
+*.dat
+.DS_Store
