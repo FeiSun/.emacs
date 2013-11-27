@@ -3,3 +3,5 @@ cache/
 url/
 *.dat
 .DS_Store
+*.elc
+elpa/archives

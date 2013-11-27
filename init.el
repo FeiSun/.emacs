@@ -1,5 +1,5 @@
 ;;; Ofey's dotemacs file  
-;;; Time-stamp: <Ofey 03/16/2013 21:11:19> 
+;;; Time-stamp: <Ofey 11/23/2013 14:04:13> 
 ;;; On the way!
 
 ;;;personal info
@@ -119,6 +119,8 @@
 ;; metapost-mode setting
 
 (require 'metapost-mode+)
+
+(require 'julia-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cdedt setting
