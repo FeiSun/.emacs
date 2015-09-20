@@ -24,7 +24,7 @@
 
 ;;; Commentary:
 
-;; 
+;;
 
 ;; Put this file into your load-path and the following into your ~/.emacs:
 ;;   (require 'auctex-setting)
@@ -34,90 +34,45 @@
 
 (load "auctex.el" nil t t)
 ;(load "preview-latex.el" nil t t)
-;(if (string-equal system-type "windows-nt")
- ;   (require 'tex-mik))
 
 
 ;; minor modes
 (autoload 'reftex-mode "reftex" "RefTeX Minor Mode" t)
 (autoload 'turn-on-reftex "reftex" "RefTeX Minor Mode" nil)
-(autoload 'reftex-citation "reftex-cite" "Make citation" nil)  
+(autoload 'reftex-citation "reftex-cite" "Make citation" nil)
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; company-auctex settings
+(require 'company-auctex)
+(company-auctex-init)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cdlatex settings
 
-(autoload 'cdlatex-mode "cdlatex" "CDLaTeX Mode" t)
-(autoload 'turn-on-cdlatex "cdlatex" "CDLaTeX Mode" nil)
-
-(setq cdlatex-math-modify-prefix [f7])
-(setq cdlatex-math-symbol-prefix [f6])
-
-(setq cdlatex-env-alist
-      '(("axiom" "\\begin{axiom}\nAUTOLABEL\n?\n\\end{axiom}\n" nil)
-	("theorem" "\\begin{theorem}\nAUTOLABEL\n?\n\\end{theorem}\n" nil)))
-
-(setq cdlatex-command-alist
- '(("axm" "Insert axiom env"   "" cdlatex-environment ("axiom") t nil)
-   ("thr" "Insert theorem env" "" cdlatex-environment ("theorem") t nil)))
-
-(setq cdlatex-math-symbol-alist
-      '((?< ("\\leftarrow" "\\Leftarrow" "\\longleftarrow" "\\Longleftarrow"))
-	(?> ("\\rightarrow" "\\Rightarrow" "\\longrightarrow" "\\Longrightarrow"))
-	))
+;(autoload 'cdlatex-mode "cdlatex" "CDLaTeX Mode" t)
+;(autoload 'turn-on-cdlatex "cdlatex" "CDLaTeX Mode" nil)
 
 ;; change the prefix key for math accents and font switching, you could do something like
 ;(setq cdlatex-math-modify-prefix [f7])
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ac-math setting
-(require 'auto-complete-config)
-(require 'ac-math)
-
-(add-to-list 'ac-modes 'latex-mode)   ; make auto-complete aware of {{{latex-mode}}}
-
-(defun ac-latex-mode-setup ()         ; add ac-source-math to default ac-sources
-  (setq ac-sources
-	(append '(ac-source-math-latex ac-source-latex-commands)
-		ac-sources))
-  )
-
-(add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
-
-;(setq ac-math-unicode-in-math-p t)
-
-;;Here is how to make the TaTeX completion work everywhere (default is only in math mode):
-;(defvar ac-source-math-latex-everywere
-;'((candidates . ac-math-symbols-latex)
-;  (prefix . "\\\\\\(.*\\)")
-;  (action . ac-math-action-latex)
-;  (symbol . "l")
-; ))
-
-;; Here is how to make unicode completion work with prefix "%" (prefix is deleted automatically on completion):
-;(defvar ac-source-math-unicode-on-%
-;'((candidates . ac-math-symbols-unicode)
-;  (prefix . "%\\(.*\\)")
-;  (action . ac-math-action-unicode)
-;  (symbol . "u")
-; ))
+;(setq cdlatex-math-modify-prefix [f7])
+;(setq cdlatex-math-symbol-prefix [f6])
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; LaTeX-mode-hook
 
-(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar) 
+(add-hook 'LaTeX-mode-hook #'LaTeX-install-toolbar)
+(add-hook 'LaTeX-mode-hook #'rainbow-delimiters-mode)
 
 (add-hook 'LaTeX-mode-hook
           (lambda ()
             (LaTeX-math-mode)
-            (turn-on-cdlatex)
+            ;(turn-on-cdlatex)
             (turn-on-reftex)
             ;(auto-fill-mode)             ;i do not like auto line feed
             (outline-minor-mode)
-;(flyspell-mode)
+            (flyspell-mode)
             (setq TeX-auto-save t)
             (setq TeX-PDF-mode t)         ;if turn it off, than default output dvi. use latex if use default engine
             (setq TeX-newline-function 'newline-and-indent) ;;newline and indent
@@ -134,7 +89,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; reftex-section
-
+(setq reftex-plug-into-AUCTeX t)
 (setq reftex-section-levels
      '(("part" . 0) ("chapter" . 1) ("section" . 2) ("subsection" . 3)
        ("frametitle" . 4) ("subsubsection" . 4) ("paragraph" . 5)

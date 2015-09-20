@@ -6,7 +6,7 @@
 ;; Version:  misc-setting.el,v 0.2 2011/11/13 12:23:32
 ;; Keywords: misc setting
 ;; X-URL: not distributed yet
-;; Time-stamp: <Ofey 03/17/2013 13:25:18> 
+;; Time-stamp: <Ofey 03/17/2013 13:25:18>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -62,7 +62,9 @@
 ;; the modeline
 ;;
 
-(require 'powerline)
+;(require 'powerline)
+;(powerline-default-theme)
+;(setq ns-use-srgb-colorspace nil)
 
 (global-linum-mode t)
 (column-number-mode t)
@@ -79,87 +81,21 @@
   minibuffer-scroll-window nil
   resize-mini-windows nil)
 
-;; http://www.emacswiki.org/emacs/IcompleteMode
-(icomplete-mode t)                       ;; completion in minibuffer
-(setq 
-  icomplete-prospects-height 1           ;; don't spam my minibuffer
-  icomplete-compute-delay 0)             ;; don't wait
-(require 'icomplete+ nil 'noerror)       ;; drew adams' extras
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ido-mode
-;; http://www.emacswiki.org/cgi-bin/wiki/InteractivelyDoThings
-
-(require 'ido) 
-(ido-mode 'both) ;; for buffers and files
-;(ido-mode t)
-
-(setq
-  ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
-  ido-ignore-buffers ;; ignore these guys
-  '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace"
-     "^\*compilation" "^\*GTAGS" "^session\.*" "^\*")
-  ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
-  ido-case-fold  t                 ; be case-insensitive
-  ido-enable-last-directory-history t ; remember last used dirs
-  ido-max-work-directory-list 30   ; should be enough
-  ido-max-work-file-list      50   ; remember many
-  ido-use-filename-at-point nil    ; don't use filename at point (annoying)
-  ido-use-url-at-point nil         ; don't use url at point (annoying)
-  ido-enable-flex-matching nil     ; don't try to be too smart
-  ido-max-prospects 8              ; don't spam my minibuffer
-  ido-confirm-unique-completion t) ; wait for RET, even with unique completion
-
-;; when using ido, the confirmation is rather annoying...
-(setq confirm-nonexistent-file-or-buffer nil)
-
-;; increase minibuffer size when ido completion is active
-(add-hook 'ido-minibuffer-setup-hook 
-  (function
-    (lambda ()
-      (make-local-variable 'resize-minibuffer-window-max-height)
-      (setq resize-minibuffer-window-max-height 1))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; color theme
-
-;(require 'color-theme)
-;(require 'zenburn nil 'noerror)
-;(color-theme-zenburn)
-;(load  "zenburn-theme.el")
-
-(require 'blackboard)
-(color-theme-blackboard)
-
-;(require 'color-theme-solarized)
-;(eval-after-load "color-theme"
-;  '(progn
-     ;(color-theme-initialize)
-     ;(color-theme-solarized-dark)
-     ;(color-theme-blackboard)
-;     ))
 
 ;(setq-default cursor-type '(hbar . 2))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font setting
 
-(create-fontset-from-fontset-spec
-"-apple-monaco-medium-r-normal--12-*-*-*-*-*-fontset-monaco,
-ascii:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
-chinese-gb2312:-apple-Microsoft Yahei-medium-normal-normal-12-*-*-*-*-p-0-iso10646-1,
-latin-iso8859-1:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1,
-mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
+(set-frame-font "Menlo:pixelsize=14")
 
-(setq default-frame-alist (append '((font . "fontset-monaco")) default-frame-alist))
-(set-default-font "fontset-monaco")
-
+;; If you use Emacs Daemon mode
+(add-to-list 'default-frame-alist
+               (cons 'font "Menlo:pixelsize=14"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; frame setting
-
 ;(menu-bar-mode -1)
-
 (tool-bar-mode -1)                      ;; turn-off toolbar
 (scroll-bar-mode -1)                    ;; turn off scroll bar
 
@@ -179,7 +115,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; startup screen
 
-(setq inhibit-startup-message t          ;; don't show ...    
+(setq inhibit-startup-message t          ;; don't show ...
   inhibit-startup-echo-area-message t)   ;; ... startup messages
 (setq require-final-newline t)           ;; end files with a newline
 
@@ -191,12 +127,12 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scrolling
 
-(setq ;; scrolling
-  scroll-margin 3                        ;; do smooth scrolling, ...
-  scroll-conservatively 100000           ;; ... the defaults ...
-  scroll-up-aggressively 0               ;; ... are very ...
-  scroll-down-aggressively 0             ;; ... annoying
-  scroll-preserve-screen-position t)     ;; preserve screen pos with C-v/M-v 
+;(setq ;; scrolling
+;  scroll-margin 3                        ;; do smooth scrolling, ...
+;  scroll-conservatively 100000           ;; ... the defaults ...
+;  scroll-up-aggressively 0               ;; ... are very ...
+;  scroll-down-aggressively 0             ;; ... annoying
+;  scroll-preserve-screen-position t)     ;; preserve screen pos with C-v/M-v
 
 (setq fringe-mode '(1 . 0))              ;; emacs 22+
 
@@ -250,10 +186,10 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; search highlight
 
-(setq search-highlight t                 ;; highlight when searching... 
+(setq search-highlight t                 ;; highlight when searching...
   query-replace-highlight t)             ;; ...and replacing
 
-(fset 'yes-or-no-p 'y-or-n-p)            ;; enable y/n answers to yes/no 
+(fset 'yes-or-no-p 'y-or-n-p)            ;; enable y/n answers to yes/no
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hl-line: highlight the current line
@@ -308,7 +244,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;(setq c-basic-offset 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; kill-ring 
+;; kill-ring
 
 (setq kill-ring-max 800)
 
@@ -317,7 +253,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;
 (setq make-backup-files t ;; do make backups
       backup-by-copying t     ;; and copy them here
-      backup-directory-alist '(("." . "~/.emacs.d/cache/backups")) 
+      backup-directory-alist '(("." . "~/.emacs.d/cache/backups"))
       version-control t
       kept-new-versions 2
       kept-old-versions 5
@@ -340,8 +276,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 	      ispell-extra-args '("--sug-mode=ultra") ;; "ultra" is the fastest mode
 	      ispell-dictionary "english") ;; if not, it will use "zh-cn",--->crash
 
-;; open image file
-;(setq auto-image-file-mode t)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; uniquify: unique buffer names
@@ -370,18 +305,6 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; restore window configuration
-
-;; http://www.emacswiki.org/emacs/WinnerMode
-;(require 'winner)
-;(setq winner-dont-bind-my-keys t) ;; winner conflicts with org
-;(global-set-key (kbd "<s-left>")      'winner-undo)
-;(global-set-key (kbd "<XF86Forward>") 'winner-redo)
-;(global-set-key (kbd "<s-right>") 'winner-redo)
-;(global-set-key (kbd "<XF86Back>") 'winner-undo)
-;(winner-mode t)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; some misc other packages
@@ -389,7 +312,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; template 
+;;; template
 
 (require 'template)
 ;;here set the templates directory
@@ -397,39 +320,18 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 (template-initialize)
 (setq template-auto-insert t)
 
-;; 这样可以在 ido 中用 C-j , C-f 等方式创建 新文件时也可以触发模板调用了
-(dolist (cmd '(ido-select-text ido-magic-forward-char
-                               ido-exit-minibuffer))
-  (add-to-list 'template-find-file-commands cmd))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; http://www.emacswiki.org/emacs/RainbowDelimiters
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-(require 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 (require 'rainbow-mode)
 ;(global-rainbow-mode)
 
-(setq doc-view-ghostscript-program "D:/Program Files/gs/gs9.02/bin/gswin32c.exe")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tab bar
-
-;; http://www.emacswiki.org/emacs/TabBarMode
-;(require 'tabbar)
-;(tabbar-mode)
-
-;(require 'ctab)
-;(ctab-mode t)
-;; .h与.c/cpp一起显示
-;(setq ctab-smart t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; minimap
-
-;; http://www.emacswiki.org/emacs-en/MiniMap
-(require 'minimap)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ModeLinePosition
@@ -451,11 +353,7 @@ mule-unicode-0100-24ff:-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso1064
 ;;;;##########################################################################
 
 
-
-
-
 ;;; misc-setting.el ends here
-
 
 
 ;; Local Variables: ;;
