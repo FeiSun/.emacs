@@ -48,8 +48,18 @@
 ;手动初始化之，如此elpa会将packages的路径加入load-path中
 
 (package-initialize);
-
 (require 'init-exec-path)
+
+;;automatically install package if not exist
+(setq my-package-list '(anaconda-mode async auctex cdlatex color-theme
+                        color-theme-sanityinc-tomorrow company company-anaconda
+                        company-auctex company-c-headers company-jedi
+                        company-statistics concurrent ctable dash deferred
+                        doc-mode epc epl flycheck git-commit git-gutter helm
+                        helm-core highlight hl-line+ jedi-core magit modeline-posn
+                        python-environment rainbow-delimiters rainbow-mode
+                        smartparens window-numbering yasnippet))
+(mapc #'package-install my-package-list)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; color theme

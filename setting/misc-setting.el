@@ -87,6 +87,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font setting
 
+
 (set-frame-font "Menlo:pixelsize=14")
 
 ;; If you use Emacs Daemon mode
